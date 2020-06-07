@@ -5,6 +5,7 @@ h3 {
 
 }
 
+/* Current Day Forecast Title */
 #todaysForecastTitle {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -13,13 +14,14 @@ h3 {
     color: cornflowerblue;
 }
 
-/* page spacing for saved cities button */
-.btnPadding {
-    line-height: 40px;
+/* Saved cities sidebar text */
+
+#savedCities {
+    line-break: auto;
+    color: #fff;
+    text-align: left;
+    padding-left: 20px;
 }
-
-/* input query form and button*/
-
 
 /* Sidebar */
 
