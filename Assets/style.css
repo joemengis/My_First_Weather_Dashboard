@@ -5,6 +5,13 @@ h3 {
 
 }
 
+#todaysForecastTitle {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: x-large;
+    font-weight: bold;
+    color: cornflowerblue;
+}
 
 
 /* input query form and button*/
