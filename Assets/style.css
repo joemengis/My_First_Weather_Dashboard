@@ -13,6 +13,10 @@ h3 {
     color: cornflowerblue;
 }
 
+/* page spacing for saved cities button */
+.btnPadding {
+    line-height: 40px;
+}
 
 /* input query form and button*/
 
