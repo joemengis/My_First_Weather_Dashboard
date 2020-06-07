@@ -6,7 +6,7 @@ h3 {
 }
 
 /* Current Day Forecast Title */
-#todaysForecastTitle {
+#forecastTitle {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: x-large;
