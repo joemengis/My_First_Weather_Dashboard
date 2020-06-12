@@ -4,15 +4,33 @@ h3 {
     text-align: center;
 
 }
+/* Mengis Weather Dashboard Title Text */
 
+#pageTitle {
+    color: rgb(0, 0, 0);
+}
 /* Current Day Forecast Title */
 #forecastTitle {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: x-large;
     font-weight: bold;
-    color: cornflowerblue;
+    color: rgb(0, 183, 255);
+    font-family: futura;
+
 }
+/* date */
+
+h5 {
+    font-weight: lighter;
+    color: dimgray;
+    font-size: xx-small;
+}
+/* Hide placeholder image */
+
+img[src=""] {
+    display: none;
+ }
 
 /* Saved cities sidebar text */
 
