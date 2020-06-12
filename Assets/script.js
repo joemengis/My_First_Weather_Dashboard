@@ -87,13 +87,14 @@ $("#run-search").on("click", function(event) {
       
 
       // clear todays forecast
-      $('#wicon').attr('src', iconURL);
+      $(".date").empty();
       $(".city-name").empty();
       $(".Temp").empty();
       $(".Humidity").empty();
       $(".wind-speed").empty();
 
       // append new forecast info
+      $('#wicon').attr('src', iconURL);
       $(".date").append(currentDate);
       $(".city-name").append(cityName);
       $(".Temp").append("Temperature: " + JSON.stringify(fahrenheit)+ "°F");
