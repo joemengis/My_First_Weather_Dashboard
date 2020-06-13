@@ -55,16 +55,55 @@ $("#run-search").on("click", function(event) {
     // Build the query URL for the ajax request to the OpenWeather API
     var queryURL = buildQueryURL();
     var queryURLFiveDay = buildQueryURLFiveDay();
-   
+    
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+  }).then(function(response) {
+    // var for API Key
+    var APIKey = "f41db2588c976c36341b4a73e28d5118";
+    // var for lat
+    var lat = response.coord.lat;
+    // var for lon
+    var lon = response.coord.lon;
+    // var build UV URL
+    var UVURL = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + lat + "&lon=" + lon;
+
+    // grab UV data from open weather
+    $.ajax({
+      url: UVURL,
+      method: "GET"
+    }).then(function(response){
+      // var for UV Index
+      var UVIndex = response.value;
+      
+     if (UVIndex > 5) {
+      $("#weather-data-UV").addClass("severe-red");
+     }else if(UVIndex < 3){
+      $("#weather-data-UV").addClass("fair-green");
+     }else{
+      $("#weather-data-UV").addClass("moderate-orange");
+     }
+
+    
+
+      $(".UV-index").empty();
+      $(".UV-index").append("UV Index: " + UVIndex);
+        
+    });
+
+  });
+
+
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-      console.log(response);
+     
       
       // grab date
       var unixTime = (response.dt);
-      console.log(unixTime);
+      
       const date = new Date(unixTime*1000);
       var currentDate = (date.toLocaleDateString("en-US"));
       
@@ -84,7 +123,7 @@ $("#run-search").on("click", function(event) {
       var iconCode = response.weather[0].icon;
       // var build icon url
       var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
-      
+     
 
       // clear todays forecast
       $(".date").empty();
@@ -108,12 +147,10 @@ $("#run-search").on("click", function(event) {
         url: queryURLFiveDay,
         method: "GET"
     }).then(function(response) {
-      console.log(response);
       // Day 1
 
       // grab date
       var dayOneUnixTime = (response.list[4].dt);
-      console.log(dayOneUnixTime);
       const dayOneDate = new Date(dayOneUnixTime*1000);
       var currentDayOneDate = (dayOneDate.toLocaleDateString("en-US"));
 
@@ -154,7 +191,6 @@ $("#run-search").on("click", function(event) {
       // Day 2
       // grab date
       var dayTwoUnixTime = (response.list[11].dt);
-      console.log(dayTwoUnixTime);
       const dayTwoDate = new Date(dayTwoUnixTime*1000);
       var currentDayTwoDate = (dayTwoDate.toLocaleDateString("en-US"));
 
@@ -188,7 +224,6 @@ $("#run-search").on("click", function(event) {
       // Day 3
       // grab date
       var dayThreeUnixTime = (response.list[19].dt);
-      console.log(dayThreeUnixTime);
       const dayThreeDate = new Date(dayThreeUnixTime*1000);
       var currentDayThreeDate = (dayThreeDate.toLocaleDateString("en-US"));
 
@@ -222,7 +257,6 @@ $("#run-search").on("click", function(event) {
       // Day 4
       // // grab date
       var dayFourUnixTime = (response.list[27].dt);
-      console.log(dayFourUnixTime);
       const dayFourDate = new Date(dayFourUnixTime*1000);
       var currentDayFourDate = (dayFourDate.toLocaleDateString("en-US"));
 
@@ -255,7 +289,6 @@ $("#run-search").on("click", function(event) {
        // Day 5
        // // grab date
       var dayFiveUnixTime = (response.list[34].dt);
-      console.log(dayFiveUnixTime);
       const dayFiveDate = new Date(dayFiveUnixTime*1000);
       var currentDayFiveDate = (dayFiveDate.toLocaleDateString("en-US"));
 

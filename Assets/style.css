@@ -19,6 +19,31 @@ h3 {
     font-family: futura;
 
 }
+
+/* card body */
+.card-body{
+    background-color: rgb(0, 183, 255);
+    color: ghostwhite;
+    border: black;
+}
+
+/* UV Index Classes */
+
+.fair-green{
+    background-color: forestgreen;
+    color: ghostwhite;
+}
+
+.moderate-orange{
+    background-color: orange;
+    color: ghostwhite;
+}
+
+.severe-red{
+    background-color: red;
+    color: ghostwhite;
+}
+
 /* date */
 
 h5 {
