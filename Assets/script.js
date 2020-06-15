@@ -1,61 +1,51 @@
-/** pulls information from the form and builds query url @returns {string} URL for Openweather API based on form input */ 
+// Initial array of saved cities
+var cities = [];
 
+function alertCityName() {
+  var cityName = $(this).attr("data-name");
 
+  alert(cityName);
+  console.log(cityName);
+}
 
-function buildQueryURL() {
-    // Grab text the user typed into the search input, add to the queryParams object
-    var userInput = $("#search-term")
-    .val()
-    .trim();
+function saveCity() {
+  $("#saved-cities").empty();
+
+  for (var i = 0; i < cities.length; i++) {
+
     
-    // set the API key
-    var APIKey = "f41db2588c976c36341b4a73e28d5118";
-    // url used to query openweather
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + APIKey;
+    var cityList = $("<button>");
+    cityList.addClass("savedCity");
+    cityList.attr("data-name", cities[i]);
+    cityList.text(cities[i]);
+    $("#saved-cities").append(cityList);
     
-return queryURL
-};
-
-function buildQueryURLFiveDay() {
-  // Grab text the user typed into the search input, add to the queryParams object
-  var userInput = $("#search-term")
-  .val()
-  .trim();
-  
-
-  var APIKey = "f41db2588c976c36341b4a73e28d5118";
-  // url used to query openweather
-  var queryURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + userInput + "&appid=" + APIKey;
-
-return queryURLFiveDay
-};
+    console.log(cityList);
+  }
+}
+console.log(cities);
 
 
 
-
-
-
-// show 5 day forecast for current city
-// save current city as favorite
-// make saved cities functional
 
 // Function to empty out the articles
 function clear() {
     $("#weather-data").empty();
   }
-  
+
+  function displayWeather(){
+    var userInput = $("#search-term")
+    .val()
+    .trim();
+
+    var APIKey = "f41db2588c976c36341b4a73e28d5118";
+    // url used to query openweather
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=" + APIKey;
+
+    var queryURLFiveDay = "https://api.openweathermap.org/data/2.5/forecast?q=" + userInput + "&appid=" + APIKey;
 
 
-
-// .on("click") function associated with the Search Button
-$("#run-search").on("click", function(event) {
-    event.preventDefault();
-    // $(".todaysForecast").clear();
-    
-    // Build the query URL for the ajax request to the OpenWeather API
-    var queryURL = buildQueryURL();
-    var queryURLFiveDay = buildQueryURLFiveDay();
-    
+    //Ajax Call for Today's Forecast 
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -85,8 +75,7 @@ $("#run-search").on("click", function(event) {
       $("#weather-data-UV").addClass("moderate-orange");
      }
 
-    
-
+    //  empty and append UV info
       $(".UV-index").empty();
       $(".UV-index").append("UV Index: " + UVIndex);
         
@@ -99,7 +88,6 @@ $("#run-search").on("click", function(event) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-     
       
       // grab date
       var unixTime = (response.dt);
@@ -319,9 +307,36 @@ $("#run-search").on("click", function(event) {
       $("#day-five-hum").append("Hum: " + JSON.stringify(dayFiveHumidity)+ "%");
       $("#day-five-wind").append("Wind Sp: " + JSON.stringify(dayFiveWindSpeed)+ "MPH");
     });
+  };
 
+
+// .on("click") function associated with the Search Button
+$("#run-search").on("click", function(event) {
+    displayWeather()
+    event.preventDefault();
+  });
+  
+  $(document).on('click', ".savedCity", function(_event){
+    console.log("hello!")
+    displayWeather();
   });
 
+  $("#run-search").on("click", function(event) {
+    // Preventing the buttons default behavior when clicked (which is submitting a form)
+    event.preventDefault();
+    // This line grabs the input from the textbox
+    var city = $("#search-term").val().trim();
+  
+    // Adding the city from the textbox to our array
+    cities.push(city);
+  
+    // Calling renderButtons which handles the processing of our cities array
+    saveCity();
+  
+  });
+  
+  
+  saveCity();
   
 //  .on("click") function associated with the clear button
 $("#clear-all").on("click", clear);
