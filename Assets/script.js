@@ -25,6 +25,11 @@ function saveCity() {
 }
 console.log(cities);
 
+// $('.savedCity').on('click', function() {
+//   $('#search-term').val($(this).text());
+//   $('#run-search').click();
+//   console.log("hello!")
+// });
 
 
 
@@ -317,8 +322,8 @@ $("#run-search").on("click", function(event) {
   });
   
   $(document).on('click', ".savedCity", function(_event){
-    console.log("hello!")
-    displayWeather();
+    $('#search-term').val($(this).text());
+    $('#run-search').click();
   });
 
   $("#run-search").on("click", function(event) {
